@@ -19,7 +19,7 @@ function App() {
           setAddToCartButtonActive={setAddToCartButtonActive}
         />
       </section>
-      <ShoppingCart />
+      <ShoppingCart cartContent={cartContent} setCartContent={setCartContent} />
     </>
   );
 }
