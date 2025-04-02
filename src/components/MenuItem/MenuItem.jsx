@@ -74,6 +74,10 @@ const MenuItem = ({
           Add to cart
         </button>
       )}
+
+      <div className={styles.itemCategory}>{item.category}</div>
+      <div className={styles.itemName}>{item.name}</div>
+      <div className={styles.itemPrice}>{item.price.toFixed(2)}</div>
     </div>
   );
 };
