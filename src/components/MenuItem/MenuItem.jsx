@@ -31,6 +31,34 @@ const MenuItem = ({
     });
   };
 
+  const subtractItemFromCart = () => {
+    setCartContent((prev) => {
+      // Find existing Item
+      const itemIndex = prev.findIndex(
+        (cartItem) => cartItem.menuItemNum === item.id
+      );
+
+      // If non exist return same reference
+      if (itemIndex === -1) return prev;
+
+      // Clone the specific item
+      const updatedItem = {
+        ...prev[itemIndex],
+        qty: prev[itemIndex].qty - 1,
+      };
+
+      // Create new cart array (instead of spread)
+      const updatedCart = prev.map((item, i) =>
+        i === itemIndex ? updatedItem : item
+      );
+
+      // Filter out new items where qty have reached 0
+      return updatedItem.qty === 0
+        ? updatedCart.filter((_, i) => i !== itemIndex)
+        : updatedCart;
+    });
+  };
+
   return (
     <div className={styles.menuItem}>
       <img src={item.imageUrl} alt="Image of baked goods" />
@@ -39,6 +67,7 @@ const MenuItem = ({
         <CounterButton
           itemQuantity={itemQuantity}
           addItemToCart={addItemToCart}
+          subtractItemFromCart={subtractItemFromCart}
         />
       ) : (
         <button onClick={() => setAddToCartButtonActive(item.id)}>
